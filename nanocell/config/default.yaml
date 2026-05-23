@@ -1,0 +1,100 @@
+# NanoCell Configuration
+
+# Server settings
+server:
+  bootstrap:
+    host: "0.0.0.0"
+    port: 9000
+  
+  relay:
+    host: "0.0.0.0"
+    port: 9001
+
+# Network settings
+network:
+  # UDP hole punching settings
+  hole_punch:
+    retries: 5
+    timeout: 0.1
+  
+  # NAT traversal
+  nat:
+    stun_servers:
+      - "stun.l.google.com:19302"
+      - "stun1.l.google.com:19302"
+  
+  # Relay fallback
+  relay:
+    enabled: true
+    max_connections: 1000
+
+# Security settings
+security:
+  # Encryption
+  encryption:
+    algorithm: "chacha20-poly1305"
+    key_exchange: "curve25519"
+  
+  # Authentication
+  auth:
+    session_timeout: 3600  # 1 hour
+    max_sessions: 10
+
+# Storage settings
+storage:
+  # LSM-tree settings
+  lsm:
+    max_memtable_size: 4194304  # 4MB
+    max_sstables: 8
+    compaction_interval: 10  # seconds
+  
+  # Data directory
+  data_dir: "./data"
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "nanocell.log"
+
+# Admin roles (customizable)
+roles:
+  user:
+    permissions:
+      - "SEND_MESSAGE"
+      - "RECEIVE_MESSAGE"
+  
+  moderator:
+    permissions:
+      - "SEND_MESSAGE"
+      - "RECEIVE_MESSAGE"
+      - "VIEW_USERS"
+      - "KICK_USER"
+  
+  admin:
+    permissions:
+      - "SEND_MESSAGE"
+      - "RECEIVE_MESSAGE"
+      - "VIEW_USERS"
+      - "BAN_USER"
+      - "KICK_USER"
+      - "VIEW_ADMINS"
+      - "VIEW_SERVER_STATS"
+      - "VIEW_PEERS"
+  
+  superadmin:
+    permissions:
+      - "SEND_MESSAGE"
+      - "RECEIVE_MESSAGE"
+      - "VIEW_USERS"
+      - "BAN_USER"
+      - "KICK_USER"
+      - "VIEW_ADMINS"
+      - "APPOINT_ADMIN"
+      - "REVOKE_ADMIN"
+      - "VIEW_SERVER_STATS"
+      - "MANAGE_RELAY"
+  
+  owner:
+    permissions:
+      - "*"  # All permissions
